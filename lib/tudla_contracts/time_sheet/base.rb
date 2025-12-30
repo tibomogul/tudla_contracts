@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TudlaContracts
   module TimeSheet
     # Base class for time sheet integrations
