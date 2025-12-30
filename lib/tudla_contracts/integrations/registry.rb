@@ -1,4 +1,4 @@
-module Tudla
+module TudlaContracts
   module Integrations
     # Shared class for registering and looking up integrations
     class Registry
