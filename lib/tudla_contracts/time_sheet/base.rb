@@ -2,6 +2,8 @@
 
 module TudlaContracts
   module TimeSheet
+    ActivitySummary = Struct.new(:task_id, :total_seconds, :notes, :remote_id, :metadata)
+
     # Base class for time sheet integrations
     class Base
       attr_reader :config
@@ -17,19 +19,6 @@ module TudlaContracts
       # @return
       def daily_activities(user, date, task_ids)
         raise NotImplementedError, "#{self.class.name} must implement #daily_activities"
-      end
-    end
-
-    # A Value Object to standardize the return data.
-    class ActivitySummary
-      attr_accessor :task_id, :total_seconds, :notes, :remote_id, :metadata
-
-      def initialize(task_id:, total_seconds:, notes: nil, remote_id: nil, metadata: {})
-        @task_id = task_id
-        @total_seconds = total_seconds
-        @notes = notes
-        @remote_id = remote_id
-        @metadata = metadata
       end
     end
   end
