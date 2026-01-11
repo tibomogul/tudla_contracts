@@ -2,6 +2,7 @@
 
 require_relative "tudla_contracts/version"
 require_relative "tudla_contracts/integrations/registry"
+require_relative "tudla_contracts/integrations/host_interface"
 require_relative "tudla_contracts/time_sheet/base"
 
 module TudlaContracts
