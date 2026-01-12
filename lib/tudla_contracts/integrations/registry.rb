@@ -11,15 +11,21 @@ module TudlaContracts
 
       class << self
         # Method called by gems to register themselves
+        # @param name [String, Symbol] Unique identifier for the integration
+        # @param type [String, Symbol] Integration type (e.g., :time_sheet)
+        # @param provider_class [String] Fully qualified class name of the provider
+        # @param config_class [String] Fully qualified class name of the config
         def register(name, type:, provider_class:, config_class:)
           @integrations[name.to_s] = {
             type: type.to_s,
-            provider_class: provider_class,
-            config_class: config_class
+            provider_class: provider_class.to_s,
+            config_class: config_class.to_s
           }
         end
 
         # Used by the Host App to look up a specific provider
+        # @param name [String, Symbol] Integration name
+        # @return [String] Fully qualified provider class name
         def find(name)
           entry = @integrations[name.to_s]
           raise ArgumentError, "Unknown integration: #{name}" unless entry
@@ -33,6 +39,8 @@ module TudlaContracts
         end
 
         # Used by the Host App to find the config class for polymorphic associations
+        # @param name [String, Symbol] Integration name
+        # @return [String, nil] Fully qualified config class name or nil if not found
         def config_class_for(name)
           entry = @integrations[name.to_s]
           return nil unless entry
