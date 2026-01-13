@@ -3,7 +3,7 @@
 module TudlaContracts
   module Integrations
     User = Struct.new(:id, :name, :email)
-    Task = Struct.new(:id, :name, :project_id)
+    Task = Struct.new(:id, :name, :project_name)
     Project = Struct.new(:id, :name)
     # Host application interface for TudlaContracts
     class HostInterface

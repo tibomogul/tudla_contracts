@@ -97,7 +97,7 @@ Available data structures:
 
 ```ruby
 TudlaContracts::Integrations::User.new(id:, name:, email:)
-TudlaContracts::Integrations::Task.new(id:, name:, project_id:)
+TudlaContracts::Integrations::Task.new(id:, name:, project_name:)
 TudlaContracts::Integrations::Project.new(id:, name:)
 ```
 
