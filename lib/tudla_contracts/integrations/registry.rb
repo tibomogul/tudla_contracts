@@ -35,6 +35,7 @@ module TudlaContracts
         # @param slot [String, Symbol] Slot name
         # @param view_component_class [String] Fully qualified class name of the view component
         def register_view_for_slot(slot, view_component_class)
+          @view_slots[slot.to_s] ||= []
           @view_slots[slot.to_s] << view_component_class.to_s
         end
 
