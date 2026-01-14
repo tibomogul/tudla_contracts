@@ -6,6 +6,8 @@ module TudlaContracts
     class Registry
       # Thread-safe storage for registered integrations
       @integrations = {}
+      # Thread-safe storage for registered view components
+      @view_slots = {}
 
       VALID_TYPES = %w[time_sheet].freeze
 
@@ -21,6 +23,31 @@ module TudlaContracts
             provider_class: provider_class.to_s,
             config_class: config_class.to_s
           }
+        end
+
+        # Reset the registry
+        def reset!
+          @integrations = {}
+          @view_slots = {}
+        end
+
+        # Method called by gems to register view components for slots
+        # @param slot [String, Symbol] Slot name
+        # @param view_component_class [String] Fully qualified class name of the view component
+        def register_view_for_slot(slot, view_component_class)
+          @view_slots[slot.to_s] << view_component_class.to_s
+        end
+
+        # Used by the Host App to look up view components for a specific slot
+        # @param slot [String, Symbol] Slot name
+        # @return [Array<String>] Array of fully qualified view component class names
+        def views_for_slot(slot)
+          @view_slots[slot.to_s] || []
+        end
+
+        # Used by the Host App to look up all registered slots
+        def registered_slots
+          @view_slots.keys
         end
 
         # Used by the Host App to look up a specific provider
