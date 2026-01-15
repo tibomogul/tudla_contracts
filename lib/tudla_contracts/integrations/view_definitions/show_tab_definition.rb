@@ -4,7 +4,7 @@ module TudlaContracts
   module Integrations
     module ViewDefinitions
       # Defines a tab to be displayed in the show view
-      class ShowTabDefinition
+      class ShowTabDefinition < Base
         attr_reader :id, :label, :component_class, :priority, :condition
 
         def initialize(id:, label:, component_class:, priority: 10, if: nil)

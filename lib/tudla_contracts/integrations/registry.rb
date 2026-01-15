@@ -6,7 +6,7 @@ module TudlaContracts
     class Registry
       # Thread-safe storage for registered integrations
       @integrations = {}
-      # Thread-safe storage for registered view components
+      # Thread-safe storage for registered view definitions
       @view_slots = {}
 
       VALID_TYPES = %w[time_sheet].freeze
@@ -31,16 +31,16 @@ module TudlaContracts
           @view_slots = {}
         end
 
-        # Method called by gems to register view components for slots
+        # Method called by gems to register view definitions for slots
         # @param slot [String, Symbol] Slot name
-        # @param view_component [Object] An instance of a class that inherits from ViewComponent
-        def register_view_for_slot(slot, view_component)
-          unless view_component.class.ancestors.any? { |a| a.name == "ViewComponent" }
-            raise ArgumentError, "view_component must be an instance of a class that inherits from ViewComponent"
+        # @param view_definition [Object] An instance of a class that inherits from ViewDefinitions::Base
+        def register_view_for_slot(slot, view_definition)
+          unless view_definition.class.ancestors.any? { |a| a.name&.end_with?("ViewDefinitions::Base") }
+            raise ArgumentError, "view_definition must be an instance of a class that inherits from ViewDefinitions::Base"
           end
 
           @view_slots[slot.to_s] ||= []
-          @view_slots[slot.to_s] << view_component
+          @view_slots[slot.to_s] << view_definition
         end
 
         # Used by the Host App to look up view components for a specific slot
