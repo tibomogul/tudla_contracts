@@ -33,12 +33,14 @@ module TudlaContracts
 
         # Method called by gems to register view components for slots
         # @param slot [String, Symbol] Slot name
-        # @param view_component_class [Class] The view component class
-        def register_view_for_slot(slot, view_component_class)
-          raise ArgumentError, "view_component_class must be a Class" unless view_component_class.is_a?(Class)
+        # @param view_component [Object] An instance of a class that inherits from ViewComponent
+        def register_view_for_slot(slot, view_component)
+          unless view_component.class.ancestors.any? { |a| a.name == "ViewComponent" }
+            raise ArgumentError, "view_component must be an instance of a class that inherits from ViewComponent"
+          end
 
           @view_slots[slot.to_s] ||= []
-          @view_slots[slot.to_s] << view_component_class
+          @view_slots[slot.to_s] << view_component
         end
 
         # Used by the Host App to look up view components for a specific slot
