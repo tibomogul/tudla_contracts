@@ -90,6 +90,10 @@ class MyHostInterface < TudlaContracts::Integrations::HostInterface
   def available_projects_for_user(user)
     # Return array of TudlaContracts::Integrations::Project structs
   end
+
+  def find_task(task_id)
+    # Return a TudlaContracts::Integrations::Task struct
+  end
 end
 ```
 

@@ -27,6 +27,13 @@ module TudlaContracts
       def available_projects_for_user(user)
         raise NotImplementedError, "#{self.class.name} must implement #avaliable_projects_for_user"
       end
+
+      # Returns a Tudla task by id
+      # @param task_id [Integer] The Tudla task id
+      # @return [Task]
+      def find_task(task_id)
+        raise NotImplementedError, "#{self.class.name} must implement #find_task"
+      end
     end
   end
 end
