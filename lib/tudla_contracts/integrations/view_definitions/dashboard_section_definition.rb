@@ -3,8 +3,8 @@
 module TudlaContracts
   module Integrations
     module ViewDefinitions
-      # Defines a tab to be displayed in the show view
-      class ShowTabDefinition < Base
+      # Defines a view to be displayed in the dashboard as one row/section
+      class DashboardSectionDefinition < Base
       end
     end
   end
